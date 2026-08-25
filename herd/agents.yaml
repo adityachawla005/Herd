@@ -1,0 +1,60 @@
+# Herd agent roster. Edit freely — no code changes needed.
+#
+# model:    what the agent wants. fallback: what it settles for when that isn't
+#           available or doesn't fit. A "cloud/" prefix routes off-machine.
+# backend:  ollama | llamacpp | hf | openai. Defaults to the top-level `backend`
+#           below, which defaults to the first one that works on this machine.
+#           Model ids are backend-specific: an Ollama tag (llama3:8b), an HF repo
+#           (meta-llama/Meta-Llama-3-8B-Instruct), or a GGUF "repo:filename".
+# pinned:   never evicted. The router runs on every task, so it stays resident.
+
+# Leave unset to auto-detect. Each agent may override it.
+backend:
+
+agents:
+  router:
+    role: >
+      You classify tasks. Reply with JSON only: {"agent": one of the listed
+      specialists, "complexity": 1-10, "reason": "under 12 words"}.
+    model: qwen2.5:0.5b
+    fallback: llama3.2:3b
+    pinned: true
+
+  coder:
+    role: >
+      You write and review code. Give working code first, then a brief note on
+      the tricky parts. Prefer the standard library. No filler.
+    model: qwen2.5-coder:7b
+    fallback: llama3.2:3b
+
+  reasoner:
+    role: >
+      You handle analysis and multi-step reasoning. Work through the problem
+      explicitly, then state the conclusion.
+    model: llama3:8b
+    fallback: cloud/claude-sonnet-5
+
+  # Example of a second backend: uncomment once transformers is installed. Note the
+  # model id is an HF repo, not an Ollama tag, and NF4 costs more VRAM than GGUF Q4.
+  # researcher:
+  #   role: "You dig through long documents and cite what you find."
+  #   backend: hf
+  #   model: Qwen/Qwen2.5-7B-Instruct
+  #   fallback: cloud/claude-sonnet-5
+
+  summarizer:
+    role: >
+      You extract the key points. Lead with the single most important one. Be brief.
+    model: llama3.2:3b
+    fallback: qwen2.5:0.5b
+
+routing:
+  # Send off-machine only when the task is hard AND nothing local runs it well.
+  complexity_threshold: 7
+  min_tok_s: 8
+  cloud:
+    provider: anthropic          # anthropic | openai
+    model: claude-sonnet-5
+    api_key_env: ANTHROPIC_API_KEY
+    usd_per_mtok_in: 3.0
+    usd_per_mtok_out: 15.0

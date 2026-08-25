@@ -1,0 +1,24 @@
+{
+  "$schema_note": "Memory bandwidth lookup, GB/s. Keys are matched case-insensitively as substrings of the detected device name, longest key first.",
+  "gpus": {
+    "rtx 5090": 1792, "rtx 5080": 960, "rtx 5070 ti": 896, "rtx 5070": 672,
+    "rtx 4090": 1008, "rtx 4080 super": 736, "rtx 4080": 717, "rtx 4070 ti super": 672,
+    "rtx 4070 ti": 504, "rtx 4070 super": 504, "rtx 4070": 504, "rtx 4060 ti": 288, "rtx 4060": 272,
+    "rtx 3090 ti": 1008, "rtx 3090": 936, "rtx 3080 ti": 912, "rtx 3080": 760,
+    "rtx 3070 ti": 608, "rtx 3070": 448, "rtx 3060 ti": 448, "rtx 3060": 360, "rtx 3050": 224,
+    "rtx 2080 ti": 616, "rtx 2070": 448, "rtx 2060": 336,
+    "gtx 1660 ti": 288, "gtx 1660": 192, "gtx 1650": 128, "gtx 1080 ti": 484, "gtx 1080": 320, "gtx 1070": 256,
+    "a100": 1935, "h100": 3350, "h200": 4800, "l40s": 864, "l4": 300,
+    "a6000": 768, "a5000": 768, "a4000": 448, "rtx 6000 ada": 960, "t4": 320, "v100": 900,
+    "rx 7900 xtx": 960, "rx 7900 xt": 800, "rx 7800 xt": 624, "rx 7600": 288,
+    "rx 6900 xt": 512, "rx 6800": 512, "rx 6700 xt": 384,
+    "apple m1": 68, "apple m1 pro": 200, "apple m1 max": 400, "apple m1 ultra": 800,
+    "apple m2": 100, "apple m2 pro": 200, "apple m2 max": 400, "apple m2 ultra": 800,
+    "apple m3": 100, "apple m3 pro": 150, "apple m3 max": 400,
+    "apple m4": 120, "apple m4 pro": 273, "apple m4 max": 546
+  },
+  "fallback_gbs": { "nvidia": 300, "amd": 400, "apple": 100, "cpu": 50 },
+  "cpu_ram_bandwidth_gbs": 50,
+  "pcie_gbs": 12,
+  "note_cpu": "cpu_ram_bandwidth_gbs assumes dual-channel DDR4-3200 (~51 GB/s theoretical, ~35 real). pcie_gbs is the effective ceiling for weights streamed from RAM to GPU each token."
+}
