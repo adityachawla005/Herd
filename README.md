@@ -6,26 +6,10 @@ how to make them run better, then routes tasks across those models on a VRAM bud
 Backend-agnostic: Ollama, llama.cpp, HuggingFace Transformers, or any OpenAI-compatible
 server (vLLM, llama-server, LM Studio, TGI).
 
-```
-$ herd recommend
+![herd recommend](images/recommend.png)
 
-Herd — model recommendations @ 4096 ctx, fp16 KV cache
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Hardware detected:
-  GPU:   NVIDIA GeForce GTX 1650 (4.0GB VRAM, 3.8GB available, 128 GB/s, cuda)
-  CPU:   12th Gen Intel(R) Core(TM) i5-12450H — 8 cores / 12 threads
-  RAM:   15.3GB (2.8GB available)
-
-RUNS GREAT (fully in VRAM)
-  ✓ Llama-3.2-3B        Q5       2.8GB  ~16 tok/s   fast, routing, chat
-  ✓ Qwen-2.5-0.5B       Q8       1.0GB  ~20 tok/s   fast, routing
-
-RUNS (CPU offload, slower)
-  ~ Llama-3-8B          Q4       4.7GB  ~6 tok/s    23/32 layers on GPU · chat, code
-
-WON'T FIT (even at Q4)
-  ✗ Llama-3-70B         Q4      34.6GB  —           reasoning, chat, code
-```
+Every figure is computed for the machine it's running on: what's free right now, not
+what the box shipped with.
 
 ## Install
 
@@ -55,6 +39,8 @@ commands (`run`, `agent`) use NDJSON so tokens appear as they're generated. Erro
 the boundary as `{"error": ..., "hint": ...}` — a stack trace never reaches the terminal.
 
 ## Commands
+
+![herd command list](images/commands.png)
 
 ```sh
 herd detect                      # GPU, VRAM (total and free), CPU, RAM, bandwidth
