@@ -26,6 +26,8 @@ If `herd` can't find its backend from outside the source tree:
 
 ## Architecture
 
+![herd architecture](images/architecture.png)
+
 A thin Go binary in front of a Python backend, talking JSON over stdout:
 
 ```
